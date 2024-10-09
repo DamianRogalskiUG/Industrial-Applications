@@ -1,4 +1,8 @@
 import java.io.*;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.*;
 import java.util.*;
 
@@ -6,7 +10,6 @@ public class Zad2 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        // Step 1: Get file names from the user
         System.out.println("Enter the first filename: ");
         String fileName1 = scanner.nextLine();
         System.out.println("Enter the second filename: ");
@@ -15,7 +18,6 @@ public class Zad2 {
         File file1 = new File(fileName1);
         File file2 = new File(fileName2);
 
-        // Step 2: If file1 exists, append its content to file2
         if (file1.exists()) {
             System.out.println("File " + fileName1 + " exists!");
 
@@ -30,22 +32,21 @@ public class Zad2 {
             } catch (IOException e) {
                 System.out.println("Error occurred while reading or writing files.");
             }
-
         } else {
             System.out.println("File " + fileName1 + " does not exist.");
         }
 
         System.out.println("Enter another filename: ");
-        String otherFileName = scanner.nextLine();
+        String fileName3 = scanner.nextLine();
         System.out.println("Enter the number of last lines to display: ");
-        int n = scanner.nextInt();
+        int numberOfLastLines = scanner.nextInt();
 
         File otherFile = new File(fileName3);
         if (otherFile.exists()) {
             List<String> lines = Files.readAllLines(Paths.get(fileName3));
-            int start = Math.max(0, lines.size() - n);
+            int start = Math.max(0, lines.size() - numberOfLastLines);
 
-            System.out.println("Last " + n + " lines from file " + fileName3 + ":");
+            System.out.println("Last " + numberOfLastLines + " lines from file " + fileName3 + ":");
             for (int i = start; i < lines.size(); i++) {
                 System.out.println(lines.get(i));
             }
