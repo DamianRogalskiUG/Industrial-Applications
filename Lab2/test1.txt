@@ -1,1 +1,1 @@
-Witaj, świecie!
+Hello World!
