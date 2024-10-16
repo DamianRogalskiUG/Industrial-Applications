@@ -1,108 +1,111 @@
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 public class Zad3 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        String csvFileName = "data.csv";
-        Map<String, Integer> currencyCount = new HashMap<>();
-        int emailCount = 0;
+        // Odczyt danych z pliku CSV
+        System.out.println("Enter the CSV filename: ");
+        String csvFileName = scanner.nextLine();
 
-        try (FileReader fileReader = new FileReader(csvFileName)) {
-            int character;
-            StringBuilder lineBuilder = new StringBuilder();
-            
-            while ((character = fileReader.read()) != -1) {
-                if (character == '\n') {
-                    String line = lineBuilder.toString();
-                    String[] data = line.split(",");
-                    if (data.length >= 3) {
-                        String currency = data[1];
-                        String email = data[2];
-
-                        currencyCount.put(currency, currencyCount.getOrDefault(currency, 0) + 1);
-
-                        if (email.endsWith(".com")) {
-                            emailCount++;
-                        }
-                    }
-                    lineBuilder.setLength(0);
-                } else {
-                    lineBuilder.append((char) character);
-                }
-            }
-
-            if (lineBuilder.length() > 0) {
-                String line = lineBuilder.toString();
-                String[] data = line.split(",");
-                if (data.length >= 3) {
-                    String currency = data[1];
-                    String email = data[2];
-
-                    currencyCount.put(currency, currencyCount.getOrDefault(currency, 0) + 1);
-
-                    if (email.endsWith(".com")) {
-                        emailCount++;
-                    }
-                }
-            }
-
-            System.out.println("Number of people earning in each currency:");
-            for (Map.Entry<String, Integer> entry : currencyCount.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
-            }
-            System.out.println("Number of emails ending with .com: " + emailCount);
-
-        } catch (IOException e) {
-            System.out.println("Error occurred while reading the CSV file.");
+        File csvFile = new File(csvFileName);
+        if (!csvFile.exists()) {
+            System.out.println("File " + csvFileName + " does not exist.");
+            return;
         }
+
+        Map<String, Integer> currencyCount = new HashMap<>();
+        int emailComCount = 0;
+
+        try (FileReader fileReader = new FileReader(csvFile)) {
+            Scanner fileScanner = new Scanner(fileReader);
+
+            if (fileScanner.hasNextLine()) {
+                fileScanner.nextLine();
+            }
+
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                String[] data = line.split(",");
+
+                String currency = data[4];
+                String email = data[2];
+
+                currencyCount.put(currency, currencyCount.getOrDefault(currency, 0) + 1);
+
+                if (email.endsWith(".com")) {
+                    emailComCount++;
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while reading the file.");
+        }
+
+        System.out.println("Number of people earning in each currency:");
+        for (Map.Entry<String, Integer> entry : currencyCount.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        System.out.println("Number of emails ending with .com: " + emailComCount);
 
         List<Student> students = new ArrayList<>();
-        System.out.println("Enter the number of students (minimum 3): ");
-        int studentCount = scanner.nextInt();
-        scanner.nextLine();
 
-        for (int i = 0; i < studentCount; i++) {
-            System.out.println("Enter the student's first name: ");
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Enter student data " + (i + 1) + ":");
+            System.out.print("Firstname: ");
             String firstName = scanner.nextLine();
-            System.out.println("Enter the student's last name: ");
+            System.out.print("Lastname: ");
             String lastName = scanner.nextLine();
-            System.out.println("Enter the student's index number: ");
-            String indexNumber = scanner.nextLine();
-            students.add(new Student(firstName, lastName, indexNumber));
+            System.out.print("Index number: ");
+            String studentId = scanner.nextLine();
+            students.add(new Student(firstName, lastName, studentId));
         }
 
-        String xmlFileName = "students.xml";
-        try (FileWriter xmlWriter = new FileWriter(xmlFileName)) {
-            xmlWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-            xmlWriter.write("<students>\n");
-
-            for (Student student : students) {
-                xmlWriter.write("  <student>\n");
-                xmlWriter.write("    <firstName>" + student.firstName + "</firstName>\n");
-                xmlWriter.write("    <lastName>" + student.lastName + "</lastName>\n");
-                xmlWriter.write("    <indexNumber>" + student.indexNumber + "</indexNumber>\n");
-                xmlWriter.write("  </student>\n");
-            }
-
-            xmlWriter.write("</students>\n");
-            System.out.println("Student data has been saved to " + xmlFileName);
-        } catch (IOException e) {
-            System.out.println("Error occurred while writing to XML file.");
-        }
+        createXML(students);
     }
 
-    static class Student {
-        String firstName;
-        String lastName;
-        String indexNumber;
+    private static void createXML(List<Student> students) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("students.xml"))) {
+            writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            writer.println("<Students>");
 
-        Student(String firstName, String lastName, String indexNumber) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.indexNumber = indexNumber;
+            for (Student student : students) {
+                writer.println("  <Student>");
+                writer.println("    <FirstName>" + student.getFirstName() + "</FirstName>");
+                writer.println("    <LastName>" + student.getLastName() + "</LastName>");
+                writer.println("    <StudentID>" + student.getStudentId() + "</StudentID>");
+                writer.println("  </Student>");
+            }
+
+            writer.println("</Students>");
+            System.out.println("Xml file saved as students.xml");
+
+        } catch (IOException e) {
+            System.out.println("Error occurred while writing the XML file.");
         }
+    }
+}
+
+class Student {
+    private String firstName;
+    private String lastName;
+    private String studentId;
+
+    public Student(String firstName, String lastName, String studentId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.studentId = studentId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getStudentId() {
+        return studentId;
     }
 }
