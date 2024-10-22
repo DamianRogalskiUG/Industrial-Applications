@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="Jan1956" class="pl.edu.ug.tent.springintro.domain.Person">
+        <property name="name" value="Jan" />
+        <property name="yob" value="1967" />
+    </bean>
+
+    <bean id="Zenon1985" class="pl.edu.ug.tent.springintro.domain.Person">
+        <constructor-arg name="name" value="Zenon"></constructor-arg>
+        <constructor-arg name="yob" value="1985"></constructor-arg>
+    </bean>
+
+</beans>
