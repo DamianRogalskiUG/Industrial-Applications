@@ -5,11 +5,28 @@ import java.util.Scanner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.example.Person;
+import java.util.ArrayList;
+import java.util.List;
 
 public class App {
     public String getGreeting() {
         return "Welcome User";
     }
+
+    public static void filterByCompany(List<Person> employees, String company) {
+        System.out.println("\nPracownicy z firmy " + company + ":");
+        employees.stream()
+                .filter(employee -> employee.getCompany().equalsIgnoreCase(company))
+                .forEach(System.out::println);
+    }
+
+    public static void sortByLastName(List<Person> employees) {
+        System.out.println("\nPracownicy posortowani według nazwiska:");
+        employees.stream()
+                .sorted((e1, e2) -> e1.getLastname().compareToIgnoreCase(e2.getLastname()))
+                .forEach(System.out::println);
+    }
+
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
@@ -36,7 +53,7 @@ public class App {
                 String header = scanner.nextLine();
                 System.out.println("Headers: " + header);
             }
-
+            List<Person> employees = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
@@ -46,8 +63,15 @@ public class App {
                 String email = data[2];
                 String company = data[3];
 
-                System.out.println("Name: " + firstName + ", Lastname: " + lastName + ", Email: " + email + ", Company: " + company);
+                Person employee = new Person(firstName, lastName, email, company);
+                employees.add(employee);
+
             }
+//            System.out.println(employees);
+
+            sortByLastName(employees);
+            filterByCompany(employees, "Twitterbridge");
+
 
             scanner.close();
         } catch (Exception e) {
