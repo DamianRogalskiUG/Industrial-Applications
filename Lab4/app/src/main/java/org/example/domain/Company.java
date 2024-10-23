@@ -1,14 +1,14 @@
 package org.example;
 
+import org.example.Person;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.io.InputStream;
-import org.springframework.stereotype.Service;
+import org.example.App;
 
 
-@Service
-public class CsvReader {
+public class Company {
     public static List<Person> readEmployeesCsv() {
         List<Person> employees = new ArrayList<>();
         try {
@@ -43,5 +43,17 @@ public class CsvReader {
         }
         return employees;
 
+    }
+    public static void filterByCompany(List<Person> employees, String company) {
+        System.out.println("\nEmployees from " + company + ":");
+        employees.stream()
+                .filter(employee -> employee.getCompany().equalsIgnoreCase(company))
+                .forEach(System.out::println);
+    }
+    public static void sortByLastName(List<Person> employees) {
+        System.out.println("\nEmployees sorted by last name:");
+        employees.stream()
+                .sorted((e1, e2) -> e1.getLastname().compareToIgnoreCase(e2.getLastname()))
+                .forEach(System.out::println);
     }
 }
