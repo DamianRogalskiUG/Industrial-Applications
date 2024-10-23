@@ -16,14 +16,14 @@ public class App {
     }
 
     public static void filterByCompany(List<Person> employees, String company) {
-        System.out.println("\nPracownicy z firmy " + company + ":");
+        System.out.println("\nEmployees from " + company + ":");
         employees.stream()
                 .filter(employee -> employee.getCompany().equalsIgnoreCase(company))
                 .forEach(System.out::println);
     }
 
     public static void sortByLastName(List<Person> employees) {
-        System.out.println("\nPracownicy posortowani według nazwiska:");
+        System.out.println("\nEmployees sorted by last name:");
         employees.stream()
                 .sorted((e1, e2) -> e1.getLastname().compareToIgnoreCase(e2.getLastname()))
                 .forEach(System.out::println);
@@ -51,8 +51,8 @@ public class App {
         employeesList
                 .forEach(employee -> System.out.println(employee));
 
-      sortByLastName(employeesList);
-      filterByCompany(employeesList, "Twitterbridge");
+        sortByLastName(employeesList);
+        filterByCompany(employeesList, "Twitterbridge");
 
     }
 }
