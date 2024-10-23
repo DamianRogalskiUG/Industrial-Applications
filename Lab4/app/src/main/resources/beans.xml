@@ -3,14 +3,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="Jan1956" class="pl.edu.ug.tent.springintro.domain.Person">
-        <property name="name" value="Jan" />
-        <property name="yob" value="1967" />
+    <bean id="Prezes" class="pl.edu.ug.tent.springintro.domain.Person">
+        <constructor-arg name="name" value="Chrystal" />
+        <constructor-arg name="lastname" value="Havoc" />
+        <constructor-arg name="email" value="chavocr@yahoo.com" />
+        <constructor-arg name="company" value="Mymm" />
     </bean>
 
-    <bean id="Zenon1985" class="pl.edu.ug.tent.springintro.domain.Person">
-        <constructor-arg name="name" value="Zenon"></constructor-arg>
-        <constructor-arg name="yob" value="1985"></constructor-arg>
+    <bean id="Wiceprezes" class="pl.edu.ug.tent.springintro.domain.Person">
+        <constructor-arg name="name" value="Halley" />
+        <constructor-arg name="lastname" value="Gadaud" />
+        <constructor-arg name="email" value="hgadaud9@sohu.com" />
+        <constructor-arg name="company" value="Oyope" />
     </bean>
+
+    <bean id="Sekretarka" class="pl.edu.ug.tent.springintro.domain.Person">
+        <constructor-arg name="name" value="Kirbie" />
+        <constructor-arg name="lastname" value="Wrettum" />
+        <constructor-arg name="email" value="kwrettumj@slideshare.net" />
+        <constructor-arg name="company" value="Browsetype" />
+    </bean>
+
 
 </beans>
