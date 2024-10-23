@@ -23,7 +23,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
-    implementation("com.opencsv:opencsv:5.6")
+    implementation("org.springframework:spring-context:5.3.29")
+    implementation("org.springframework:spring-beans:5.3.29")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

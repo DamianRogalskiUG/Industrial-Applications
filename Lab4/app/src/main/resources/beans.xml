@@ -3,22 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="Prezes" class="pl.edu.ug.tent.springintro.domain.Person">
-        <constructor-arg name="name" value="Chrystal" />
+    <bean id="Prezes" class="org.example.Person">
+        <constructor-arg name="firstName" value="Chrystal" />
         <constructor-arg name="lastname" value="Havoc" />
         <constructor-arg name="email" value="chavocr@yahoo.com" />
         <constructor-arg name="company" value="Mymm" />
     </bean>
 
-    <bean id="Wiceprezes" class="pl.edu.ug.tent.springintro.domain.Person">
-        <constructor-arg name="name" value="Halley" />
+    <bean id="Wiceprezes" class="org.example.Person">
+        <constructor-arg name="firstName" value="Halley" />
         <constructor-arg name="lastname" value="Gadaud" />
         <constructor-arg name="email" value="hgadaud9@sohu.com" />
         <constructor-arg name="company" value="Oyope" />
     </bean>
 
-    <bean id="Sekretarka" class="pl.edu.ug.tent.springintro.domain.Person">
-        <constructor-arg name="name" value="Kirbie" />
+    <bean id="Sekretarka" class="org.example.Person">
+        <constructor-arg name="firstName" value="Kirbie" />
         <constructor-arg name="lastname" value="Wrettum" />
         <constructor-arg name="email" value="kwrettumj@slideshare.net" />
         <constructor-arg name="company" value="Browsetype" />

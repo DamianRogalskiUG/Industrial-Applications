@@ -2,6 +2,9 @@ package org.example;
 
 import java.io.InputStream;
 import java.util.Scanner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.example.Person;
 
 public class App {
     public String getGreeting() {
@@ -9,8 +12,17 @@ public class App {
     }
 
     public static void main(String[] args) {
-        // Wypisujemy wiadomość powitalną
         System.out.println(new App().getGreeting());
+
+        ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+
+        Person prezes = (Person) context.getBean("Prezes");
+        Person wiceprezes = (Person) context.getBean("Wiceprezes");
+        Person sekretarka = (Person) context.getBean("Sekretarka");
+
+        System.out.println(prezes);
+        System.out.println(wiceprezes);
+        System.out.println(sekretarka);
 
         try {
             InputStream inputStream = App.class.getClassLoader().getResourceAsStream("MOCK_DATA.csv");
